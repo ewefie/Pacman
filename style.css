@@ -1,0 +1,100 @@
+/*#g1,*/
+/*#g2,*/
+/*#g3,*/
+/*#g4,*/
+/*#pac {*/
+/*    height: 32px;*/
+/*    width: 32px;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    visibility: hidden;*/
+/*}*/
+
+/*#g1 {*/
+/*    z-index: 2;*/
+/*}*/
+
+/*#g2 {*/
+/*    z-index: 3;*/
+/*}*/
+
+/*#g3 {*/
+/*    z-index: 4;*/
+/*}*/
+
+/*#g4 {*/
+/*    z-index: 5;*/
+/*}*/
+
+/*#pac {*/
+/*    z-index: 6;*/
+/*}*/
+div {
+    margin: -2px -1px -2px -1px;
+}
+
+.pacman {
+    width: 32px;
+    height: 32px;
+    background-image: url("img/pacman2 (2).png");
+    display: inline-block;
+}
+
+.coin {
+    width: 32px;
+    height: 32px;
+    background-image: url("img/coin.png");
+    display: inline-block;
+}
+
+.wall {
+    width: 32px;
+    height: 32px;
+    background-image: url("img/wall.png");
+    display: inline-block;
+}
+
+.ground {
+    width: 32px;
+    height: 32px;
+    background-image: url("img/bg.png");
+    display: inline-block;
+}
+
+.v,
+.h,
+.ctl,
+.ctr,
+.cbl,
+.cbr {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+}
+
+
+.v {
+    background-image: url("img/v.png");
+}
+
+.h {
+    background-image: url("img/h.png");
+}
+
+.ctl {
+    background-image: url("img/ctl.png");
+}
+
+.ctr {
+    background-image: url("img/ctr.png");
+}
+
+.cbl {
+    background-image: url("img/cbl.png");
+}
+
+.cbr {
+    background-image: url("img/cbr.png");
+}
+
