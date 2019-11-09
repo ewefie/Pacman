@@ -3,7 +3,8 @@ canvas.width = 895;
 canvas.height = 991;
 const sideLength = 32;
 const context = canvas.getContext('2d');
-const frameColor = "#2528e6";
+const frameColor = '#2528e6';
+
 const map = [
     [7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8],
     [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6],
@@ -38,22 +39,22 @@ const map = [
     [0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 9],
 ];
 const blinky = {
-    color: "#FF0000",
+    color: '#FF0000',
     x: 486,
     y: 640,
 };
 const pinky = {
-    color: "#FFB8FF",
+    color: '#FFB8FF',
     x: 448,
     y: 704,
 };
 const inky = {
-    color: "#00FFFF",
+    color: '#00FFFF',
     x: 410,
     y: 704,
 };
 const clyde = {
-    color: "#FFB852",
+    color: '#FFB852',
     x: 486,
     y: 704,
 };
@@ -62,8 +63,8 @@ const ghosts = [pinky, blinky, inky, clyde];
 const pacman = {
     x: 448,
     y: 752,
-    currDir: "",
-    newDir: "",
+    currDir: '',
+    newDir: '',
     lives: 3,
 };
 
@@ -78,32 +79,32 @@ const canMove = (x, y) => {
 
 const checkDirection = () => {
     switch (pacman.newDir) {
-    case "up":
+    case 'up':
         newY = pacman.y - sideLength;
         if (canMove(pacman.x, newY)) {
             pacman.y = newY;
             pacman.currDir = pacman.newDir;
         }
         break;
-    case "down":
+    case 'down':
         newY = pacman.y + sideLength;
         if (canMove(pacman.x, newY)) {
-            pacman.y = newY
+            pacman.y = newY;
             pacman.currDir = pacman.newDir;
         }
         break;
-    case    "left"    :
+    case    'left'    :
         newX = pacman.x - sideLength;
         if (canMove(newX, pacman.y)) {
-            pacman.x = newX
+            pacman.x = newX;
             pacman.currDir = pacman.newDir;
 
         }
         break;
-    case     "right"     :
+    case     'right'     :
         newX = pacman.x + sideLength;
         if (canMove(newX, pacman.y)) {
-            pacman.x = newX
+            pacman.x = newX;
             pacman.currDir = pacman.newDir;
 
         }
@@ -113,14 +114,14 @@ const checkDirection = () => {
 const drawPacman = (x, y) => {
     context.beginPath();
     context.arc(x, y, 15, 0.25 * Math.PI, 1.25 * Math.PI, false);
-    context.fillStyle = "rgb(255, 255, 0)";
+    context.fillStyle = 'rgb(255, 255, 0)';
     context.fill();
     context.beginPath();
     context.arc(x, y, 15, 0.75 * Math.PI, 1.75 * Math.PI, false);
     context.fill();
     context.beginPath();
     context.arc(x, 0.99 * y, 2, 0, 2 * Math.PI, false);
-    context.fillStyle = "rgb(0, 0, 0)";
+    context.fillStyle = 'rgb(0, 0, 0)';
     context.fill();
 };
 const makeMove = (x, y) => {
@@ -139,17 +140,17 @@ const drawWorld = () => {
             case 1://pill
                 context.beginPath();
                 context.arc(tileX + 16, tileY + 16, 9, 0, 2 * Math.PI);
-                context.fillStyle = "#ffdd6e";
+                context.fillStyle = '#ffdd6e';
                 context.fill();
                 break;
             case 2://coin
                 context.beginPath();
                 context.arc(tileX + 16, tileY + 16, 4, 0, 2 * Math.PI);
-                context.fillStyle = "#fff2c4";
+                context.fillStyle = '#fff2c4';
                 context.fill();
                 break;
             case 4:
-                context.fillStyle = "#000";
+                context.fillStyle = '#000';
                 context.fillRect(tileX, tileY, sideLength, sideLength);
                 break;
             case 5:
@@ -208,7 +209,7 @@ const addPoints = () => {
 document.onkeydown = function (e) {
     switch (e.code) {
     case 'ArrowLeft':
-        pacman.direction = "left";
+        pacman.direction = 'left';
         dirX = -1;
         dirY = 0;
 
@@ -221,7 +222,7 @@ document.onkeydown = function (e) {
         // }
         break;
     case 'ArrowDown':
-        pacman.direction = "down";
+        pacman.direction = 'down';
         dirX = 0;
         dirY = 1;
         // if (canMove(pacman.y + 1, pacman.x)) {
@@ -232,7 +233,7 @@ document.onkeydown = function (e) {
         // }
         break;
     case 'ArrowRight':
-        pacman.direction = "right";
+        pacman.direction = 'right';
         dirX = 1;
         dirY = 0;
         // if (canMove(pacman.y, pacman.x + 1)) {
@@ -243,7 +244,7 @@ document.onkeydown = function (e) {
         // }
         break;
     case 'ArrowUp':
-        pacman.direction = "up";
+        pacman.direction = 'up';
         dirX = 0;
         dirY = -1;
         // if (canMove(pacman.y - 1, pacman.x)) {
@@ -286,18 +287,18 @@ const printGhost = (x, y, color) => {
     context.fill();
     context.beginPath();
     context.arc(x - 4, y - 7, 5, 0, 2 * Math.PI);
-    context.fillStyle = "#fff";
+    context.fillStyle = '#fff';
     context.fill();
     context.beginPath();
     context.arc(x + 4, y - 7, 5, 0, 2 * Math.PI);
     context.fill();
     context.beginPath();
     context.arc(x + 5, y - 7, 2, 0, 2 * Math.PI);
-    context.fillStyle = "#000";
+    context.fillStyle = '#000';
     context.fill();
     context.beginPath();
     context.arc(x - 3, y - 7, 2, 0, 2 * Math.PI);
-    context.fillStyle = "#000";
+    context.fillStyle = '#000';
     context.fill();
 };
 
@@ -319,7 +320,7 @@ const printGhost = (x, y, color) => {
 //             requestAnimationFrame(anim)
 //             context.beginPath();
 //             context.arc(testX * sideLength + 16, testY * sideLength + 16, 4, 0, 2 * Math.PI);
-//             context.fillStyle = "#eb4034";
+//             context.fillStyle = '#eb4034';
 //             context.fill();
 //             testY += 1;
 //             testX += 0;
@@ -332,7 +333,7 @@ const printGhost = (x, y, color) => {
 //         //     requestAnimationFrame(anim)
 //         //     context.beginPath();
 //         //     context.arc(testX, testY, 4, 0, 2 * Math.PI);
-//         //     context.fillStyle = "#fff2c4";
+//         //     context.fillStyle = '#fff2c4';
 //         //     context.fill();
 //         //     testY += 2;
 //         //     testX += 0;
@@ -348,39 +349,37 @@ let testY = 736;
 //     // requestAnimationFrame(anim)
 //     context.beginPath();
 //     context.arc(testX + 16, testY + 16, 4, 0, 2 * Math.PI);
-//     context.fillStyle = "#eb4034";
+//     context.fillStyle = '#eb4034';
 //     context.fill();
 // };
 
 
 const anim = () => {
-        if ((testY) % 32 === 0 && (testX) % 32 === 0) {
-            if (map[(testY / sideLength) + dirY][(testX / sideLength) + dirX] === 2 || map[(testY / sideLength) + dirY][(testX / sideLength) + dirX] === 4) {
-                // requestAnimationFrame(anim);
-                // printGhost(testX, testY, pinky.color);
-
-                testY += dirY;
-                testX += dirX;
-            } else {
-                testY += 0;
-                testX += 0;
-            }
-        } else {
-            // context.clearRect(testX, testY, sideLength, sideLength);
+    if ((testY) % 32 === 0 && (testX) % 32 === 0) {
+        if (map[(testY / sideLength) + dirY][(testX / sideLength) + dirX] === 2 || map[(testY / sideLength) + dirY][(testX / sideLength) + dirX] === 4) {
             // requestAnimationFrame(anim);
             // printGhost(testX, testY, pinky.color);
 
+            testY += dirY;
+            testX += dirX;
+        } else {
             testY += 0;
             testX += 0;
         }
+    } else {
         // context.clearRect(testX, testY, sideLength, sideLength);
-        requestAnimationFrame(anim);
-        printGhost(testX, testY, pinky.color);
+        // requestAnimationFrame(anim);
+        // printGhost(testX, testY, pinky.color);
 
-
+        testY += 0;
+        testX += 0;
     }
+    // context.clearRect(testX, testY, sideLength, sideLength);
+    requestAnimationFrame(anim);
+    printGhost(testX, testY, pinky.color);
+
+
+}
 ;
 
 anim();
-
-
