@@ -2,7 +2,7 @@ const canvas = document.getElementById('canvas');
 canvas.width = 895;
 canvas.height = 991;
 const sideLength = 32;
-const context = canvas.getContext('2d');
+const frameContext = canvas.getContext('2d');
 const frameColor = '#2528e6';
 
 const map = [
@@ -63,6 +63,8 @@ const ghosts = [pinky, blinky, inky, clyde];
 const pacman = {
     x: 448,
     y: 752,
+    tileX: Math.round(this.x / sideLength),
+    tileY: Math.round(this.x / sideLength),
     currDir: '',
     newDir: '',
     lives: 3,
@@ -340,8 +342,8 @@ const printGhost = (x, y, color) => {
 //         // }
 //     }
 // ;
-let testX = 448;
-let testY = 736;
+let testX = 32;
+let testY = 32;
 
 
 // const drawObject = () => {
@@ -355,31 +357,22 @@ let testY = 736;
 
 
 const anim = () => {
-    if ((testY) % 32 === 0 && (testX) % 32 === 0) {
-        if (map[(testY / sideLength) + dirY][(testX / sideLength) + dirX] === 2 || map[(testY / sideLength) + dirY][(testX / sideLength) + dirX] === 4) {
-            // requestAnimationFrame(anim);
-            // printGhost(testX, testY, pinky.color);
-
+        if ((testY) % 32 === 0 && (testX) % 32 === 0) {
+            if (map[(testY / sideLength) + dirX][(testX / sideLength) + dirX] === 2 || map[(testY / sideLength) + dirY][(testX / sideLength) + dirX] === 4) {
+                testY += dirY;
+                testX += dirX;
+            } else {
+                testY += 0;
+                testX += 0;
+            }
+        } else {
             testY += dirY;
             testX += dirX;
-        } else {
-            testY += 0;
-            testX += 0;
         }
-    } else {
         // context.clearRect(testX, testY, sideLength, sideLength);
-        // requestAnimationFrame(anim);
-        // printGhost(testX, testY, pinky.color);
-
-        testY += 0;
-        testX += 0;
+        requestAnimationFrame(anim);
+        printGhost(testX, testY, pinky.color);
     }
-    // context.clearRect(testX, testY, sideLength, sideLength);
-    requestAnimationFrame(anim);
-    printGhost(testX, testY, pinky.color);
-
-
-}
 ;
 
 anim();

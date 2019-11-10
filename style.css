@@ -3,69 +3,107 @@ div {
 }
 
 .v,
-.h,
-.ctl,
-.ctr,
-.cbl,
-.cbr,
-.pill,
-.ground,
-.coin,
-.pacman {
-    width: 32px;
-    height: 32px;
-    display: inline-block;
-}
+    /*.h,*/
+    /*.ctl,*/
+    /*.ctr,*/
+    /*.cbl,*/
+    /*.cbr,*/
+    /*.pill,*/
+    /*.ground,*/
+    /*.coin,*/
+    /*.pacman {*/
+    /*    width: 32px;*/
+    /*    height: 32px;*/
+    /*    display: inline-block;*/
+    /*}*/
 
-.v {
-    background-image: url("img/v.png");
-}
-
-
-.pill {
-    background-image: url("img/pill.png");
-}
-
-.pacman {
-    background-image: url("img/pacman2 (2).png");
-}
-
-.ground {
-    background-image: url("img/bg.png");
-}
+    /*.v {*/
+    /*    background-image: url("img/v.png");*/
+    /*}*/
 
 
-.coin {
-    background-image: url("img/coin.png");
-    visibility: hidden;
-}
+    /*.pill {*/
+    /*    background-image: url("img/pill.png");*/
+    /*}*/
 
-.h {
-    background-image: url("img/h.png");
-}
+    /*.pacman {*/
+    /*    background-image: url("img/pacman2 (2).png");*/
+    /*}*/
 
-.ctl {
-    background-image: url("img/ctl.png");
-}
+    /*.ground {*/
+    /*    background-image: url("img/bg.png");*/
+    /*}*/
 
-.ctr {
-    background-image: url("img/ctr.png");
-}
 
-.cbl {
-    background-image: url("img/cbl.png");
-}
+    /*.coin {*/
+    /*    background-image: url("img/coin.png");*/
+    /*    visibility: hidden;*/
+    /*}*/
 
-.cbr {
-    background-image: url("img/cbr.png");
-}
+    /*.h {*/
+    /*    background-image: url("img/h.png");*/
+    /*}*/
+
+    /*.ctl {*/
+    /*    background-image: url("img/ctl.png");*/
+    /*}*/
+
+    /*.ctr {*/
+    /*    background-image: url("img/ctr.png");*/
+    /*}*/
+
+    /*.cbl {*/
+    /*    background-image: url("img/cbl.png");*/
+    /*}*/
+
+    /*.cbr {*/
+    /*    background-image: url("img/cbr.png");*/
+    /*}*/
 
 body {
-    background-color: green;
+    background-color: black;
 }
 
 canvas {
     background-color: black;
+    position: absolute;
+    left: 50px;
+    top: 0px;
+}
 
+#frame {
+    z-index: 0;
+    background-color: transparent;
+}
+
+#ghosts {
+    z-index: 1;
+    background-color: transparent;
+}
+
+#pacman {
+    background-color: transparent;
+    z-index: 2;
+}
+
+#score {
+    position: relative;
+    /*background-color: red;*/
+    background-color: transparent;
+    /*color: green;*/
+    z-index: -1;
+    left: 50px;
+    top: 0;
+    /*width: 895px;*/
+    /*height: 100px;*/
+}
+
+#info {
+    position: relative;
+    display: block;
+    background-color: transparent;
+    z-index: -1;
+    left: 50px;
+    top: 991px;
 }
 
