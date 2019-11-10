@@ -4,7 +4,6 @@ canvas.height = 991;
 const sideLength = 32;
 const context = canvas.getContext('2d');
 const frameColor = '#2528e6';
-
 const map = [
     [7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8],
     [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6],
@@ -38,348 +37,306 @@ const map = [
     [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6],
     [0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 9],
 ];
-const blinky = {
-    color: '#FF0000',
-    x: 486,
-    y: 640,
-};
-const pinky = {
-    color: '#FFB8FF',
-    x: 448,
-    y: 704,
-};
-const inky = {
-    color: '#00FFFF',
-    x: 410,
-    y: 704,
-};
-const clyde = {
-    color: '#FFB852',
-    x: 486,
-    y: 704,
-};
-const ghosts = [pinky, blinky, inky, clyde];
 
-const pacman = {
-    x: 448,
-    y: 752,
-    currDir: '',
-    newDir: '',
-    lives: 3,
-};
+class Position {
+    constructor(x, y) {
+        this.x = Math.floor(x) * sideLength;
+        this.y = Math.floor(y) * sideLength;
+    };
 
-let newX, newY;
-let dirX = 0;
-let dirY = 0;
-const canMove = (x, y) => {
-    x = x / 32;
-    y = y / 32;
-    return map[x][y] === 2 || map[x][y] === 4 || map[x][y] === 1;
-};
+    _getX() {
+        return this.x / sideLength;
+    }
 
-const checkDirection = () => {
-    switch (pacman.newDir) {
-    case 'up':
-        newY = pacman.y - sideLength;
-        if (canMove(pacman.x, newY)) {
-            pacman.y = newY;
-            pacman.currDir = pacman.newDir;
+    _getY() {
+        return this.y / sideLength;
+    }
+
+
+    _isCollision(x, y) {
+        let t = map[y][x];
+        // console.log(`x:${x} y:${y} t:${t}`);
+        if(t == 1 || t == 2 || t == 4) {
+            return false;
         }
-        break;
-    case 'down':
-        newY = pacman.y + sideLength;
-        if (canMove(pacman.x, newY)) {
-            pacman.y = newY;
-            pacman.currDir = pacman.newDir;
-        }
-        break;
-    case    'left'    :
-        newX = pacman.x - sideLength;
-        if (canMove(newX, pacman.y)) {
-            pacman.x = newX;
-            pacman.currDir = pacman.newDir;
+        return true;
+    }
 
-        }
-        break;
-    case     'right'     :
-        newX = pacman.x + sideLength;
-        if (canMove(newX, pacman.y)) {
-            pacman.x = newX;
-            pacman.currDir = pacman.newDir;
+    _moveX(xOffset) {
+        this.x += xOffset * sideLength;
+    }
 
+    _moveY(yOffset) {
+        this.y += yOffset * sideLength;
+    }
+
+    // if move was success return true
+    _movePos(x, y) {
+        const newX = this._getX() + x;
+        const newY = this._getY() + y;
+        const coll = this._isCollision(newX, newY);
+
+        if(coll) {
+            return false;
         }
-        break;
+
+        this._moveX(x);
+        this._moveY(y);
+
+        return true;
+    }
+
+    moveLeft() {
+        return this._movePos(-1, 0);
+    }
+
+    moveRight() {
+        return this._movePos(1, 0);
+    }
+
+    moveDown() {
+        return this._movePos(0, 1);
+    }
+
+    moveUp() {
+        return this._movePos(0, -1);
+    }
+
+    stop() {}
+
+    getWorldPosition() {
+        return { x: this._getX(), y: this._getY() };
+    }
+
+    getRealPosition() {
+        return { x: this.x, y: this.y };
     }
 };
-const drawPacman = (x, y) => {
-    context.beginPath();
-    context.arc(x, y, 15, 0.25 * Math.PI, 1.25 * Math.PI, false);
-    context.fillStyle = 'rgb(255, 255, 0)';
-    context.fill();
-    context.beginPath();
-    context.arc(x, y, 15, 0.75 * Math.PI, 1.75 * Math.PI, false);
-    context.fill();
-    context.beginPath();
-    context.arc(x, 0.99 * y, 2, 0, 2 * Math.PI, false);
-    context.fillStyle = 'rgb(0, 0, 0)';
-    context.fill();
-};
-const makeMove = (x, y) => {
-    requestAnimationFrame(makeMove);
-    checkDirection();
-    drawPacman(x, y);
-};
 
+class World {
+    constructor() {
+    };
 
-const drawWorld = () => {
-    for (let i = 0; i < 31; i++) {
-        for (let j = 0; j < 28; j++) {
-            let tileX = j * sideLength;
-            let tileY = i * sideLength;
-            switch (map[i][j]) {
-            case 1://pill
-                context.beginPath();
-                context.arc(tileX + 16, tileY + 16, 9, 0, 2 * Math.PI);
-                context.fillStyle = '#ffdd6e';
-                context.fill();
-                break;
-            case 2://coin
-                context.beginPath();
-                context.arc(tileX + 16, tileY + 16, 4, 0, 2 * Math.PI);
-                context.fillStyle = '#fff2c4';
-                context.fill();
-                break;
-            case 4:
-                context.fillStyle = '#000';
-                context.fillRect(tileX, tileY, sideLength, sideLength);
-                break;
-            case 5:
-                context.beginPath();
-                context.moveTo(tileX, tileY + 16);
-                context.lineTo(tileX + sideLength, tileY + 16);
-                context.lineWidth = 10;
-                context.strokeStyle = frameColor;
-                context.stroke();
-                break;
-            case 6:
-                context.beginPath();
-                context.moveTo(tileX + 16, tileY);
-                context.lineTo(tileX + 16, tileY + sideLength);
-                context.lineWidth = 10;
-                context.strokeStyle = frameColor;
-                context.stroke();
-                break;
-            case 7:
-                context.beginPath();
-                context.arc(tileX + sideLength, tileY + sideLength, 16, 1 * Math.PI, 1.5 * Math.PI, false);
-                context.lineWidth = 10;
-                context.strokeStyle = frameColor;
-                context.stroke();
-                break;
-            case 8:
-                context.beginPath();
-                context.arc(tileX, tileY + sideLength, 16, 1.5 * Math.PI, 0, false);
-                context.lineWidth = 10;
-                context.strokeStyle = frameColor;
-                context.stroke();
-                break;
-            case 9:
-                context.beginPath();
-                context.arc(tileX, tileY, 16, 0, 0.5 * Math.PI, false);
-                context.lineWidth = 10;
-                context.strokeStyle = frameColor;
-                context.stroke();
-                break;
-            case 0:
-                context.beginPath();
-                context.arc(tileX + sideLength, tileY, 16, 0.5 * Math.PI, Math.PI, false);
-                context.lineWidth = 10;
-                context.strokeStyle = frameColor;
-                context.stroke();
-                break;
+    drawWorld() {
+        for (let i = 0; i < 31; i++) {
+            for (let j = 0; j < 28; j++) {
+                let tileX = j * sideLength;
+                let tileY = i * sideLength;
+                switch (map[i][j]) {
+                case 1://pill
+                    context.beginPath();
+                    context.arc(tileX + 16, tileY + 16, 9, 0, 2 * Math.PI);
+                    context.fillStyle = '#ffdd6e';
+                    context.fill();
+                    break;
+                case 2://coin
+                    context.beginPath();
+                    context.arc(tileX + 16, tileY + 16, 4, 0, 2 * Math.PI);
+                    context.fillStyle = '#fff2c4';
+                    context.fill();
+                    break;
+                case 4:
+                    context.fillStyle = '#000';
+                    context.fillRect(tileX, tileY, sideLength, sideLength);
+                    break;
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 0:
+                    context.fillStyle = '#00f';
+                    // context.fillStyle = 'rgb(0, 0, 0, 0)';
+                    context.fillRect(tileX, tileY, sideLength, sideLength);
+                    break;
+                }
+            }
+        }
+    }
+
+    crashWith(obj1, obj2) {
+        const myleft = obj1.y;
+        const myright = obj1.y + sideLength;
+        const mytop = obj1.x;
+        const mybottom = obj1.x + sideLength;
+        const otherleft = obj2.y;
+        const otherright = obj2.y + sideLength;
+        const othertop = obj2.x;
+        const otherbottom = obj2.x + sideLength;
+        let crash = true;
+
+        if ((mybottom < othertop) ||
+            (mytop > otherbottom) ||
+            (myright < otherleft) ||
+            (myleft > otherright)) {
+            crash = false;
+        } else {
+            console.log('Crash!!!');
+        }
+
+        return crash;
+    }
+
+    checkState() {
+        const pacPoint = pacman.position.getWorldPosition();
+        if(map[pacPoint.y][pacPoint.x] === 2) {
+            pacman.score++;
+            map[pacPoint.y][pacPoint.x] = 4;
+        }
+        if(map[pacPoint.y][pacPoint.x] === 1) {
+            map[pacPoint.y][pacPoint.x] = 4;
+            pacman.startPanic();
+        }
+
+        const pacPos = pacman.position.getRealPosition();
+        for(let g of ghosts) {
+            const gPos = g.position.getRealPosition();
+            if(this.crashWith(pacPos, gPos)) {
+                if(pacman.panicMode) {
+                    g.setDead();
+                } else
+                    pacman.setDead();
             }
         }
     }
 };
-const addPoints = () => {
 
+class Monster {
+    constructor(position, color) {
+        this.position = position;
+        this.color = color;
+        this.liveColor = color;
+        this.deadColor = '#808080';
+        this.isDead = false;
+        this.currentDirection = 'Stop';
+        this.nextDirection = 'Stop';
+    };
 
-};
+    moveMonster(direction) {
+        switch(direction) {
+        case 'Stop':
+            return this.position.stop();
+            break;
+        case 'Up':
+            return this.position.moveUp();
+            break;
+        case 'Down':
+            return this.position.moveDown();
+            break;
+        case 'Left':
+            return this.position.moveLeft();
+            break;
+        case 'Right':
+            return this.position.moveRight();
+        }
 
-document.onkeydown = function (e) {
-    switch (e.code) {
-    case 'ArrowLeft':
-        pacman.direction = 'left';
-        dirX = -1;
-        dirY = 0;
+    }
 
-        // if (canMove(pacman.y, pacman.x - 1)) {
-        //     map[pacman.y][pacman.x] = 4;//przemalowuję na czarne tło
-        //     pacman.x -= 1;
-        //     map[pacman.y][pacman.x] = 3;//przemalowuję na pacmana
-        //     drawWorld();
-        //
-        // }
+    drawMonster() {
+        context.clearRect(this.position.x, this.position.y, sideLength, sideLength);
+        if(this.moveMonster(this.nextDirection)) {
+            this.currentDirection = this.nextDirection;
+        } else {
+            this.moveMonster(this.currentDirection);
+        }
+        context.fillStyle = this.color;
+        context.fillRect(this.position.x, this.position.y, sideLength, sideLength);
+    }
+
+    setDirection(nextDirect) {
+        this.nextDirection = nextDirect;
+    }
+
+    setDead() {
+        setTimeout(() => { this.isDead = false;
+                           this.color = this.liveColor;
+                         }, 10000);
+        this.isDead = true;
+        this.color = this.deadColor;;
+    }
+}
+
+class Ghost extends Monster {
+    constructor(position, color) {
+        super(position, color);
+    }
+}
+
+class Pacman extends Monster {
+    constructor(position, color) {
+        super(position, color);
+        this.score = 0;
+        this.panicMode = false;
+        this.toId = undefined;
+        this.deadColor = '#202020';
+    }
+
+    startPanic() {
+        if(this.panicMode) {
+            clearTimeout(this.toId);
+        }
+        this.panicMode = true;
+        this.toId = setTimeout(() => { this.panicMode = false; }, 10000);
+    }
+}
+
+// Create the World
+const world = new World();
+// Some bad guys
+const blinky = new Ghost(new Position(1, 1), '#f00');
+const pinky = new Ghost(new Position(26, 1), '#ffb8ff');
+const inky = new Ghost(new Position(1, 8), '#0ff');
+const clyde = new Ghost(new Position(26, 8), 'ffb852');
+const ghosts = [pinky, blinky, inky, clyde];
+// And a good guy
+const pacman = new Pacman(new Position(13, 23), 'yellow');
+
+function init() {
+    world.drawWorld();
+    for(let g of ghosts) {
+        g.drawMonster();
+    }
+    pacman.drawMonster();
+}
+
+document.onkeydown = function(e) {
+    e.preventDefault();
+    switch(e.code) {
+    case 'ArrowUp':
+        pacman.setDirection('Up');
         break;
     case 'ArrowDown':
-        pacman.direction = 'down';
-        dirX = 0;
-        dirY = 1;
-        // if (canMove(pacman.y + 1, pacman.x)) {
-        //     map[pacman.y][pacman.x] = 4;
-        //     pacman.y += 1;
-        //     map[pacman.y][pacman.x] = 3;
-        //     drawWorld();
-        // }
+        pacman.setDirection('Down');
+        break;
+    case 'ArrowLeft':
+        pacman.setDirection('Left');
         break;
     case 'ArrowRight':
-        pacman.direction = 'right';
-        dirX = 1;
-        dirY = 0;
-        // if (canMove(pacman.y, pacman.x + 1)) {
-        //     map[pacman.y][pacman.x] = 4;
-        //     pacman.x += 1;
-        //     map[pacman.y][pacman.x] = 3;
-        //     drawWorld();
-        // }
-        break;
-    case 'ArrowUp':
-        pacman.direction = 'up';
-        dirX = 0;
-        dirY = -1;
-        // if (canMove(pacman.y - 1, pacman.x)) {
-        //     map[pacman.y][pacman.x] = 4;
-        //     pacman.y -= 1;
-        //     map[pacman.y][pacman.x] = 3;
-        //     drawWorld();
-        // }
+        pacman.setDirection('Right');
         break;
     }
 };
 
-drawWorld();
-// makeMove(pacman.x, pacman.y);
-//ghost test
-gx = 400;
-gy = 400;
-
-const printGhost = (x, y, color) => {
-    x += 16;
-    y += 18;
-    context.clearRect(x - 19, y - 25, sideLength + 5, sideLength + 8);
-    context.beginPath();
-    context.ellipse(x, y, 24 * 0.7, 24, 0, 1 * Math.PI, 0, false);
-    context.fillStyle = color;
-    context.fill();
-    context.beginPath();
-    context.fillRect(x - 17, y, 24 * 1.40, 24 * 0.40);
-    context.beginPath();
-    context.arc(x - 12, y + 9, 24 * 0.175, 0, Math.PI, false);
-    context.fill();
-    context.beginPath();
-    context.arc(x - 4, y + 9, 24 * 0.175, 0, Math.PI, false);
-    context.fill();
-    context.beginPath();
-    context.arc(x + 4, y + 9, 24 * 0.175, 0, Math.PI, false);
-    context.fill();
-    context.beginPath();
-    context.arc(x + 12, y + 9, 24 * 0.175, 0, Math.PI, false);
-    context.fill();
-    context.beginPath();
-    context.arc(x - 4, y - 7, 5, 0, 2 * Math.PI);
-    context.fillStyle = '#fff';
-    context.fill();
-    context.beginPath();
-    context.arc(x + 4, y - 7, 5, 0, 2 * Math.PI);
-    context.fill();
-    context.beginPath();
-    context.arc(x + 5, y - 7, 2, 0, 2 * Math.PI);
-    context.fillStyle = '#000';
-    context.fill();
-    context.beginPath();
-    context.arc(x - 3, y - 7, 2, 0, 2 * Math.PI);
-    context.fillStyle = '#000';
-    context.fill();
-};
-
-
-//pacman cały czas się porusza w zadanym kierunku (jesli może), więc musi miec ustawiony direction pobrany z klawisza wcisnietego od gracza
-// mamy direction zapamiętane przez pacmana, sprawdzamy czy może zmienić kierunek, jesli tak to zmieniamy
-
-//jeśli może się ruszyć to jego koordynaty zmieniają się o +-32,
-//animacja jest rozbita
-
-//test animacji
-//
-// let testX = 6;
-// let testY = 1;
-// const anim = () => {
-//         // if ((testY - 16) % 32 === 0 && (testX - 16) % 32 === 0) {
-//         if (map[testY][testX] === 2) {
-//             context.clearRect(testX * sideLength, testY * sideLength - 32, sideLength, sideLength);
-//             requestAnimationFrame(anim)
-//             context.beginPath();
-//             context.arc(testX * sideLength + 16, testY * sideLength + 16, 4, 0, 2 * Math.PI);
-//             context.fillStyle = '#eb4034';
-//             context.fill();
-//             testY += 1;
-//             testX += 0;
-//         } else {
-//             // testY += -1;
-//             // testX += 0;
-//         }
-//         // } else {
-//         //     context.clearRect(testX - 16, testY - 16, sideLength, sideLength);
-//         //     requestAnimationFrame(anim)
-//         //     context.beginPath();
-//         //     context.arc(testX, testY, 4, 0, 2 * Math.PI);
-//         //     context.fillStyle = '#fff2c4';
-//         //     context.fill();
-//         //     testY += 2;
-//         //     testX += 0;
-//         // }
-//     }
-// ;
-let testX = 448;
-let testY = 736;
-
-
-// const drawObject = () => {
-//     context.clearRect(testX, testY, sideLength, sideLength);
-//     // requestAnimationFrame(anim)
-//     context.beginPath();
-//     context.arc(testX + 16, testY + 16, 4, 0, 2 * Math.PI);
-//     context.fillStyle = '#eb4034';
-//     context.fill();
-// };
-
+const directions = ['Stop', 'Up', 'Down', 'Left', 'Right'];
+setInterval(function() {
+    for(let g of ghosts) {
+        nd = directions[Math.round(Math.random() * 3) + 1];
+        g.setDirection(nd);
+    }}, 1000);
 
 const anim = () => {
-    if ((testY) % 32 === 0 && (testX) % 32 === 0) {
-        if (map[(testY / sideLength) + dirY][(testX / sideLength) + dirX] === 2 || map[(testY / sideLength) + dirY][(testX / sideLength) + dirX] === 4) {
-            // requestAnimationFrame(anim);
-            // printGhost(testX, testY, pinky.color);
-
-            testY += dirY;
-            testX += dirX;
-        } else {
-            testY += 0;
-            testX += 0;
+    setTimeout( function() {
+        for(let g of ghosts) {
+            g.drawMonster();
         }
-    } else {
-        // context.clearRect(testX, testY, sideLength, sideLength);
-        // requestAnimationFrame(anim);
-        // printGhost(testX, testY, pinky.color);
+        pacman.drawMonster();
+        // console.log(`score:${pacman.score} panic:${pacman.panicMode} dead:${pacman.isDead}`);
+        world.checkState();
+        requestAnimationFrame(anim);
+    }, 1000 / 7);
+    //double check maybe will work
+    // world.checkState();
+};
 
-        testY += 0;
-        testX += 0;
-    }
-    // context.clearRect(testX, testY, sideLength, sideLength);
-    requestAnimationFrame(anim);
-    printGhost(testX, testY, pinky.color);
-
-
-}
-;
-
+init();
 anim();
