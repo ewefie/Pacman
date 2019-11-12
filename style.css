@@ -1,71 +1,39 @@
-div {
-    margin: -2px -1px;
-}
-
-.v,
-.h,
-.ctl,
-.ctr,
-.cbl,
-.cbr,
-.pill,
-.ground,
-.coin,
-.pacman {
-    width: 32px;
-    height: 32px;
-    display: inline-block;
-}
-
-.v {
-    background-image: url("img/v.png");
-}
-
-
-.pill {
-    background-image: url("img/pill.png");
-}
-
-.pacman {
-    background-image: url("img/pacman2 (2).png");
-}
-
-.ground {
-    background-image: url("img/bg.png");
-}
-
-
-.coin {
-    background-image: url("img/coin.png");
-    visibility: hidden;
-}
-
-.h {
-    background-image: url("img/h.png");
-}
-
-.ctl {
-    background-image: url("img/ctl.png");
-}
-
-.ctr {
-    background-image: url("img/ctr.png");
-}
-
-.cbl {
-    background-image: url("img/cbl.png");
-}
-
-.cbr {
-    background-image: url("img/cbr.png");
-}
-
 body {
-    background-color: green;
+    background-color: black;
 }
 
 canvas {
     background-color: black;
+    position: absolute;
+    left: 50px;
+    top: 0px;
+}
+
+#frame {
+    z-index: 0;
+    background-color: transparent;
 
 }
 
+#monster {
+    z-index: 1;
+    background-color: transparent;
+}
+
+#score {
+    position: relative;
+    /*background-color: red;*/
+    background-color: transparent;
+    z-index: -1;
+    left: 50px;
+    top: 0;
+}
+
+#info {
+    position: relative;
+    display: block;
+    background-color: transparent;
+    z-index: -1;
+    left: 50px;
+    top: 991px;
+}
