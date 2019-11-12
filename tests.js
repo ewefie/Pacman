@@ -113,6 +113,7 @@ const drawPacman = (x, y) => {
         pacmanContext.clearRect(x - 17 - (sideLength * cdX), y - 16 - (sideLength * cdY), sideLength, sideLength);
         pacmanContext.beginPath();
         pacmanContext.arc(x, y, 15, 1.25 * Math.PI, 0.25 * Math.PI, false);
+        // pacmanContext.fillStyle = 'transparent';
         pacmanContext.fillStyle = 'rgb(255, 255, 0)';
         pacmanContext.fill();
         pacmanContext.beginPath();
@@ -396,3 +397,6 @@ drawScore();
 drawHighScore();
 anim();
 
+//owoce, pojawiająs się dwa na lvl, pierwszy po zjedzeniu 70 kulek, drugi po zjedzeniu 170 kulek,
+//owoc w lokalizacji losowanej z czwórek, zjedzenie owoca 100 p.
+//https://pacman.fandom.com/wiki/Point_Configurations
