@@ -23,40 +23,6 @@ const frameColor = '#2121DE';
 const sideLength = 32;
 
 
-const map = [
-    [7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8],
-    [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6],
-    [6, 2, 7, 5, 5, 8, 2, 7, 5, 5, 5, 8, 2, 6, 6, 2, 7, 5, 5, 5, 8, 2, 7, 5, 5, 8, 2, 6],
-    [6, 1, 6, 4, 4, 6, 2, 6, 4, 4, 4, 6, 2, 6, 6, 2, 6, 4, 4, 4, 6, 2, 6, 4, 4, 6, 1, 6],
-    [6, 2, 0, 5, 5, 9, 2, 0, 5, 5, 5, 9, 2, 0, 9, 2, 0, 5, 5, 5, 9, 2, 0, 5, 5, 9, 2, 6],
-    [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6],
-    [6, 2, 7, 5, 5, 8, 2, 7, 8, 2, 7, 5, 5, 5, 5, 5, 5, 8, 2, 7, 8, 2, 7, 5, 5, 8, 2, 6],
-    [6, 2, 0, 5, 5, 9, 2, 6, 6, 2, 0, 5, 5, 8, 7, 5, 5, 9, 2, 6, 6, 2, 0, 5, 5, 9, 2, 6],
-    [6, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 6],
-    [0, 5, 5, 5, 5, 8, 2, 6, 0, 5, 5, 8, 4, 6, 6, 4, 7, 5, 5, 9, 6, 2, 7, 5, 5, 5, 5, 9],
-    [4, 4, 4, 4, 4, 6, 2, 6, 7, 5, 5, 9, 4, 0, 9, 4, 0, 5, 5, 8, 6, 2, 6, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 6, 2, 6, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 2, 6, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 6, 2, 6, 6, 4, 7, 5, 5, 4, 4, 5, 5, 8, 4, 6, 6, 2, 6, 4, 4, 4, 4, 4],
-    [5, 5, 5, 5, 5, 9, 2, 0, 9, 4, 6, 4, 4, 4, 4, 4, 4, 6, 4, 0, 9, 2, 0, 5, 5, 5, 5, 5],
-    [4, 4, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4, 4],
-    [5, 5, 5, 5, 5, 8, 2, 7, 8, 4, 6, 4, 4, 4, 4, 4, 4, 6, 4, 7, 8, 2, 7, 5, 5, 5, 5, 5],
-    [4, 4, 4, 4, 4, 6, 2, 6, 6, 4, 0, 5, 5, 4, 4, 5, 5, 9, 4, 6, 6, 2, 6, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 6, 2, 6, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 2, 6, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 6, 2, 6, 6, 4, 7, 5, 5, 5, 5, 5, 5, 8, 4, 6, 6, 2, 6, 4, 4, 4, 4, 4],
-    [7, 5, 5, 5, 5, 9, 2, 0, 9, 4, 0, 5, 5, 8, 7, 5, 5, 9, 4, 0, 9, 2, 0, 5, 5, 5, 5, 8],
-    [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6],
-    [6, 2, 7, 5, 5, 8, 2, 7, 5, 5, 5, 8, 2, 6, 6, 2, 7, 5, 5, 5, 8, 2, 7, 5, 5, 8, 2, 6],
-    [6, 2, 0, 5, 8, 6, 2, 0, 5, 5, 5, 9, 2, 0, 9, 2, 0, 5, 5, 5, 9, 2, 6, 7, 5, 9, 2, 6],
-    [6, 1, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 1, 6],
-    [0, 5, 8, 2, 6, 6, 2, 7, 8, 2, 7, 5, 5, 5, 5, 5, 5, 8, 2, 7, 8, 2, 6, 6, 2, 7, 5, 9],
-    [7, 5, 9, 2, 0, 9, 2, 6, 6, 2, 0, 5, 5, 8, 7, 5, 5, 9, 2, 6, 6, 2, 0, 9, 2, 0, 5, 8],
-    [6, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 6],
-    [6, 2, 7, 5, 5, 5, 5, 9, 0, 5, 5, 8, 2, 6, 6, 2, 7, 5, 5, 9, 0, 5, 5, 5, 5, 8, 2, 6],
-    [6, 2, 0, 5, 5, 5, 5, 5, 5, 5, 5, 9, 2, 0, 9, 2, 0, 5, 5, 5, 5, 5, 5, 5, 5, 9, 2, 6],
-    [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6],
-    [0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 9],
-];
-
 class Position {
     constructor(x, y) {
         this.x = Math.floor(x) * sideLength;
@@ -73,7 +39,7 @@ class Position {
 
 
     _isCollision(x, y) {
-        let t = map[y][x];
+        let t = game.map[y][x];
         // console.log(`x:${x} y:${y} t:${t}`);
         return !(t === 1 || t === 2 || t === 4);
     }
@@ -139,6 +105,162 @@ class Position {
     }
 };
 
+class Game {
+    constructor() {
+        this.gameOn = false;
+        this.gamePaused = false;
+        this.beans = 240;
+        this.world = new World();
+        // Some bad guys
+        this.blinky = new Ghost(new Position(12, 14), '#f00');
+        this.pinky = new Ghost(new Position(13, 14), '#ffb8ff');
+        this.inky = new Ghost(new Position(14, 14), '#0ff');
+        this.clyde = new Ghost(new Position(15, 14), '#ffb852');
+        this.ghosts = [this.pinky, this.blinky, this.inky, this.clyde];
+        // And a good guy
+        this.pacman = new Pacman(new Position(13, 23), '#FFFF00');
+        this.map = [
+            [7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8],
+            [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6],
+            [6, 2, 7, 5, 5, 8, 2, 7, 5, 5, 5, 8, 2, 6, 6, 2, 7, 5, 5, 5, 8, 2, 7, 5, 5, 8, 2, 6],
+            [6, 1, 6, 4, 4, 6, 2, 6, 4, 4, 4, 6, 2, 6, 6, 2, 6, 4, 4, 4, 6, 2, 6, 4, 4, 6, 1, 6],
+            [6, 2, 0, 5, 5, 9, 2, 0, 5, 5, 5, 9, 2, 0, 9, 2, 0, 5, 5, 5, 9, 2, 0, 5, 5, 9, 2, 6],
+            [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6],
+            [6, 2, 7, 5, 5, 8, 2, 7, 8, 2, 7, 5, 5, 5, 5, 5, 5, 8, 2, 7, 8, 2, 7, 5, 5, 8, 2, 6],
+            [6, 2, 0, 5, 5, 9, 2, 6, 6, 2, 0, 5, 5, 8, 7, 5, 5, 9, 2, 6, 6, 2, 0, 5, 5, 9, 2, 6],
+            [6, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 6],
+            [0, 5, 5, 5, 5, 8, 2, 6, 0, 5, 5, 8, 4, 6, 6, 4, 7, 5, 5, 9, 6, 2, 7, 5, 5, 5, 5, 9],
+            [4, 4, 4, 4, 4, 6, 2, 6, 7, 5, 5, 9, 4, 0, 9, 4, 0, 5, 5, 8, 6, 2, 6, 4, 4, 4, 4, 4],
+            [4, 4, 4, 4, 4, 6, 2, 6, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 2, 6, 4, 4, 4, 4, 4],
+            [4, 4, 4, 4, 4, 6, 2, 6, 6, 4, 7, 5, 5, 4, 4, 5, 5, 8, 4, 6, 6, 2, 6, 4, 4, 4, 4, 4],
+            [5, 5, 5, 5, 5, 9, 2, 0, 9, 4, 6, 4, 4, 4, 4, 4, 4, 6, 4, 0, 9, 2, 0, 5, 5, 5, 5, 5],
+            [4, 4, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4, 4],
+            [5, 5, 5, 5, 5, 8, 2, 7, 8, 4, 6, 4, 4, 4, 4, 4, 4, 6, 4, 7, 8, 2, 7, 5, 5, 5, 5, 5],
+            [4, 4, 4, 4, 4, 6, 2, 6, 6, 4, 0, 5, 5, 4, 4, 5, 5, 9, 4, 6, 6, 2, 6, 4, 4, 4, 4, 4],
+            [4, 4, 4, 4, 4, 6, 2, 6, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 2, 6, 4, 4, 4, 4, 4],
+            [4, 4, 4, 4, 4, 6, 2, 6, 6, 4, 7, 5, 5, 5, 5, 5, 5, 8, 4, 6, 6, 2, 6, 4, 4, 4, 4, 4],
+            [7, 5, 5, 5, 5, 9, 2, 0, 9, 4, 0, 5, 5, 8, 7, 5, 5, 9, 4, 0, 9, 2, 0, 5, 5, 5, 5, 8],
+            [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6],
+            [6, 2, 7, 5, 5, 8, 2, 7, 5, 5, 5, 8, 2, 6, 6, 2, 7, 5, 5, 5, 8, 2, 7, 5, 5, 8, 2, 6],
+            [6, 2, 0, 5, 8, 6, 2, 0, 5, 5, 5, 9, 2, 0, 9, 2, 0, 5, 5, 5, 9, 2, 6, 7, 5, 9, 2, 6],
+            [6, 1, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 1, 6],
+            [0, 5, 8, 2, 6, 6, 2, 7, 8, 2, 7, 5, 5, 5, 5, 5, 5, 8, 2, 7, 8, 2, 6, 6, 2, 7, 5, 9],
+            [7, 5, 9, 2, 0, 9, 2, 6, 6, 2, 0, 5, 5, 8, 7, 5, 5, 9, 2, 6, 6, 2, 0, 9, 2, 0, 5, 8],
+            [6, 2, 2, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 2, 2, 6],
+            [6, 2, 7, 5, 5, 5, 5, 9, 0, 5, 5, 8, 2, 6, 6, 2, 7, 5, 5, 9, 0, 5, 5, 5, 5, 8, 2, 6],
+            [6, 2, 0, 5, 5, 5, 5, 5, 5, 5, 5, 9, 2, 0, 9, 2, 0, 5, 5, 5, 5, 5, 5, 5, 5, 9, 2, 6],
+            [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6],
+            [0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 9],
+        ];
+    };
+
+    showWelcomeScreen() {
+        // Create the World
+        this.world.drawWorld();
+
+        frameContext.fillStyle = this.pacman.color;
+        frameContext.font = "120px monospace";
+        frameContext.textAlign = "center";
+        frameContext.fillText("PACMAN", frameCanvas.width / 2, frameCanvas.height / 2 - 20);
+        frameContext.font = "30px monospace";
+        frameContext.fillText("Press spacebar to start", frameCanvas.width / 2, frameCanvas.height / 2 + 30);
+    };
+
+    showWinMessage() {
+        frameContext.fillStyle = this.pacman.color;
+        frameContext.font = "120px monospace";
+        frameContext.textAlign = "center";
+        frameContext.fillText("WINNER!", frameCanvas.width / 2, frameCanvas.height / 2 - 20);
+        frameContext.font = "30px monospace";
+        frameContext.fillText("Press spacebar to start new game", frameCanvas.width / 2, frameCanvas.height / 2 + 30);
+        game = new Game();// this = new Game();//jak to napisać żeby działało?
+
+    };
+
+    showGameOver() {
+        frameContext.fillStyle = this.pacman.color;
+        frameContext.font = "120px monospace";
+        frameContext.textAlign = "center";
+        frameContext.fillText("GAME OVER!", frameCanvas.width / 2, frameCanvas.height / 2 - 20);
+        frameContext.font = "30px monospace";
+        frameContext.fillText("Press spacebar to start new game", frameCanvas.width / 2, frameCanvas.height / 2 + 30);
+        game = new Game();
+    };
+
+
+    showPause() {
+        frameContext.fillStyle = this.pacman.color;
+        frameContext.font = "120px monospace";
+        frameContext.textAlign = "center";
+        frameContext.fillText("GAME PAUSED ", frameCanvas.width / 2, frameCanvas.height / 2 - 20);
+        frameContext.font = "30px monospace";
+        frameContext.fillText("Press spacebar to resume", frameCanvas.width / 2, frameCanvas.height / 2 + 30);
+        this.gamePaused = true;
+    }
+
+    drawScore() {
+        scoreContext.clearRect(0, 100, 300, 40);
+        scoreContext.fillStyle = "white";
+        scoreContext.textAlign = "left";
+        scoreContext.font = "30px Lucida Console";
+        scoreContext.fillText("Score: " + this.pacman.score, 20, scoreCanvas.height - 20);
+    };
+
+//add highscore
+    drawHighScore() {
+        // scoreContext.clearRect(0, 0, 895, );
+        scoreContext.fillStyle = "white";
+        scoreContext.font = "30px Lucida Console";
+        scoreContext.textAlign = "center";
+        scoreContext.fillText("HIGH SCORE", scoreCanvas.width / 2, scoreCanvas.height - 75);
+        scoreContext.fillText(this.pacman.score, scoreCanvas.width / 2, scoreCanvas.height - 30);
+    };
+
+    drawInfo() {
+        infoContext.clearRect(0, 0, 450, 100);
+        let infoX = 1;
+        let infoY = 1;
+        for (let i = 1; i <= this.pacman.lives; i++) {
+            infoContext.beginPath();
+            infoContext.arc(infoX * sideLength * i, infoY * sideLength, 15, 0.25 * Math.PI, 1.25 * Math.PI, false);
+            infoContext.fillStyle = this.pacman.liveColor;
+            infoContext.fill();
+            infoContext.beginPath();
+            infoContext.arc(infoX * sideLength * i, infoY * sideLength, 15, 0.75 * Math.PI, 1.75 * Math.PI, false);
+            infoContext.fill();
+            infoContext.beginPath();
+            infoContext.arc(infoX * sideLength * i * 0.98, (infoY * sideLength) * 0.80, 2, 0, 2 * Math.PI, false);
+            infoContext.fillStyle = 'rgb(0, 0, 0)';
+            infoContext.fill();
+        }
+    };
+
+    init() {
+        frameContext.clearRect(0, 0, frameCanvas.width, frameCanvas.height);
+        this.world.drawWorld();
+        monsterContext.clearRect(0, 0, frameCanvas.width, frameCanvas.height);
+        this.gameOn = true;
+        for (let g of this.ghosts) {
+            g.drawMonster();
+        }
+        this.pacman.drawPacman();
+        this.drawScore();
+        this.drawHighScore();
+        this.drawInfo();
+
+        let ghosts = this.ghosts;
+
+        const directions = ['Stop', 'Up', 'Down', 'Left', 'Right'];
+        setInterval(function () {
+            for (let g of ghosts) {
+                let nd = directions[Math.floor(Math.random() * 3) + 1];
+                g.setDirection(nd);
+            }
+        }, 1000);
+        anim();
+    }
+}
+
 class World {
     constructor() {
     };
@@ -148,7 +270,7 @@ class World {
             for (let j = 0; j < 28; j++) {
                 let tileX = j * sideLength;
                 let tileY = i * sideLength;
-                switch (map[i][j]) {
+                switch (game.map[i][j]) {
                 case 1://pill
                     frameContext.beginPath();
                     frameContext.arc(tileX + 16, tileY + 16, 9, 0, 2 * Math.PI);
@@ -238,32 +360,41 @@ class World {
     }
 
     checkState() {
-        const pacPoint = pacman.position.getWorldPosition();
-        if (map[pacPoint.y][pacPoint.x] === 2) {
-            pacman.score += 10;
-            map[pacPoint.y][pacPoint.x] = 4;
-            drawScore();
+        if (game.pacman.lives === 0) {
+            game.showGameOver();
+            return;
+        }
+        if (game.beans === 0) {
+            game.showWinMessage();
+            return;
+        }
+        const pacPoint = game.pacman.position.getWorldPosition();
+        if (game.map[pacPoint.y][pacPoint.x] === 2) {
+            game.pacman.score += 10;
+            game.beans--;
+            game.map[pacPoint.y][pacPoint.x] = 4;
+            game.drawScore();
             this.drawWorld();
         }
-        if (map[pacPoint.y][pacPoint.x] === 1) {
-            map[pacPoint.y][pacPoint.x] = 4;
-            pacman.startPanic();
+        if (game.map[pacPoint.y][pacPoint.x] === 1) {
+            game.map[pacPoint.y][pacPoint.x] = 4;
+            game.pacman.startPanic();
         }
-        const pacPos = pacman.position.getRealPosition();
-        for (let g of ghosts) {
-            for (let g of ghosts) {
+        const pacPos = game.pacman.position.getRealPosition();
+        for (let g of game.ghosts) {
+            for (let g of game.ghosts) {
                 const gPos = g.position.getRealPosition();
                 if (this.crashWith(pacPos, gPos)) {
-                    if (pacman.panicMode) {
+                    if (game.pacman.panicMode) {
                         g.setDead();
                     } else {
-                        pacman.setDead();
+                        game.pacman.setDead();
                     }
                 }
             }
         }
-        if (pacman.isDead) {
-            pacman.restartPos();
+        if (game.pacman.isDead) {
+            game.pacman.restartPos();
         }
     }
 };
@@ -393,10 +524,10 @@ class Pacman extends Monster {
         this.position = new Position(0, 14);
         this.lives--;
         console.log("Stracił życie");
-        console.log(pacman.lives);
+        console.log(game.pacman.lives);
         this.isDead = false;
         this.color = this.liveColor;
-        drawInfo();
+        game.drawInfo();
     }
 
     drawPacman() {
@@ -411,7 +542,7 @@ class Pacman extends Monster {
         monsterContext.fillStyle = this.color;
         const x = this.position.x + 16;
         const y = this.position.y + 16;
-        switch (pacman.currentDirection) {
+        switch (game.pacman.currentDirection) {
         case 'Stop':
             monsterContext.beginPath();
             monsterContext.arc(x, y, 15, 0, 2 * Math.PI, false);
@@ -475,103 +606,67 @@ class Pacman extends Monster {
     }
 }
 
-// Create the World
-const world = new World();
-// Some bad guys
-const blinky = new Ghost(new Position(12, 14), '#f00');
-const pinky = new Ghost(new Position(13, 14), '#ffb8ff');
-const inky = new Ghost(new Position(14, 14), '#0ff');
-const clyde = new Ghost(new Position(15, 14), '#ffb852');
-const ghosts = [pinky, blinky, inky, clyde];
-// And a good guy
-const pacman = new Pacman(new Position(13, 23), '#FFFF00');
-
-function init() {
-    world.drawWorld();
-    for (let g of ghosts) {
-        g.drawMonster();
-    }
-    pacman.drawPacman();
-    drawScore();
-    drawHighScore();
-    drawInfo();
-}
 
 document.onkeydown = function (e) {
     e.preventDefault();
     switch (e.code) {
     case 'ArrowUp':
-        pacman.setDirection('Up');
+        game.pacman.setDirection('Up');
         break;
     case 'ArrowDown':
-        pacman.setDirection('Down');
+        game.pacman.setDirection('Down');
         break;
     case 'ArrowLeft':
-        pacman.setDirection('Left');
+        game.pacman.setDirection('Left');
         break;
     case 'ArrowRight':
-        pacman.setDirection('Right');
+        game.pacman.setDirection('Right');
         break;
+    case "Space":
+        if (game.gameOn === false && game.gamePaused === false) {
+            game.init();
+            break;
+        }
+        if (game.gameOn === true && game.gamePaused === false) {
+            game.showPause();
+            break;
+        }
+        if (game.gameOn === true && game.gamePaused === true) {
+            game.gamePaused = false;
+            frameContext.clearRect(0, 0, frameCanvas.width, frameCanvas.height);
+            game.world.drawWorld();
+            anim();
+            break;
+        }
     }
 };
-//brak inicjalizacji zmiennej 'nd' - sprawdzic co to robi
-const directions = ['Stop', 'Up', 'Down', 'Left', 'Right'];
-setInterval(function () {
-    for (let g of ghosts) {
-        let nd = directions[Math.round(Math.random() * 3) + 1];
-        g.setDirection(nd);
-    }
-}, 1000);
 
 const anim = () => {
-    setTimeout(function () {
-        for (let g of ghosts) {
-            g.drawMonster();
-        }
-        pacman.drawPacman();
-        // console.log(`score:${pacman.score} panic:${pacman.panicMode} dead:${pacman.isDead}`);
-        world.checkState();
-        requestAnimationFrame(anim);
-    }, 1000 / 7);
+    let ghosts = game.ghosts;
+    let pacman = game.pacman;
+    let world = game.world;
+    if (!game.gamePaused && game.gameOn) {
+        setTimeout(function () {
+            for (let g of ghosts) {
+                g.drawMonster();
+            }
+            pacman.drawPacman();
+            // console.log(`score:${pacman.score} panic:${pacman.panicMode} dead:${pacman.isDead}`);
+            world.checkState();
+            requestAnimationFrame(anim);
+        }, 1000 / 7);
+    }
     //double check maybe will work
     // world.checkState();
 };
 
-const drawScore = () => {
-    scoreContext.clearRect(0, 100, 300, 40);
-    scoreContext.fillStyle = "white";
-    scoreContext.textAlign = "left";
-    scoreContext.font = "30px Lucida Console";
-    scoreContext.fillText("Score: " + pacman.score, 20, scoreCanvas.height - 20);
-};
-//add highscore
-const drawHighScore = () => {
-    // scoreContext.clearRect(0, 0, 895, );
-    scoreContext.fillStyle = "white";
-    scoreContext.font = "30px Lucida Console";
-    scoreContext.textAlign = "center";
-    scoreContext.fillText("HIGH SCORE", scoreCanvas.width / 2, scoreCanvas.height - 75);
-    scoreContext.fillText(pacman.score, scoreCanvas.width / 2, scoreCanvas.height - 30);
-};
 
-const drawInfo = () => {
-    infoContext.clearRect(0, 0, 450, 100);
-    let infoX = 1;
-    let infoY = 1;
-    for (let i = 1; i <= pacman.lives; i++) {
-        infoContext.beginPath();
-        infoContext.arc(infoX * sideLength * i, infoY * sideLength, 15, 0.25 * Math.PI, 1.25 * Math.PI, false);
-        infoContext.fillStyle = pacman.liveColor;
-        infoContext.fill();
-        infoContext.beginPath();
-        infoContext.arc(infoX * sideLength * i, infoY * sideLength, 15, 0.75 * Math.PI, 1.75 * Math.PI, false);
-        infoContext.fill();
-        infoContext.beginPath();
-        infoContext.arc(infoX * sideLength * i * 0.98, (infoY * sideLength) * 0.80, 2, 0, 2 * Math.PI, false);
-        infoContext.fillStyle = 'rgb(0, 0, 0)';
-        infoContext.fill();
-    }
-};
+// const pauseGame = () => {
+//     if (!game.gamePaused) {
+//         clearTimeout();
+//         game.gamePaused = true;
+//     }
+// };
+let game = new Game();
+game.showWelcomeScreen();
 
-init();
-anim();
