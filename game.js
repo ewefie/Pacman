@@ -23,7 +23,6 @@ const frameColor = '#1919A6';
 
 const sideLength = 32;
 
-
 class Position {
     constructor(x, y) {
         this.x = Math.floor(x) * sideLength;
@@ -104,7 +103,7 @@ class Position {
     getRealPosition() {
         return {x: this.x, y: this.y};
     }
-};
+}
 
 class Game {
     constructor() {
@@ -187,7 +186,6 @@ class Game {
         frameContext.fillText('Press spacebar to start new game', frameCanvas.width / 2, frameCanvas.height / 2 + 30);
         game = new Game();
     };
-
 
     showPause() {
         frameContext.fillStyle = this.pacman.color;
@@ -289,52 +287,43 @@ class World {
                     frameContext.fillRect(tileX, tileY, sideLength, sideLength);
                     break;
                 case 5:
-                    frameContext.beginPath();
-                    frameContext.moveTo(tileX, tileY + 16);
-                    frameContext.lineTo(tileX + sideLength, tileY + 16);
-                    frameContext.lineWidth = 10;
-                    frameContext.strokeStyle = frameColor;
-                    frameContext.stroke();
+                    this.drawWall(tileX, tileY + 16, tileX + sideLength, tileY + 16);
                     break;
                 case 6:
-                    frameContext.beginPath();
-                    frameContext.moveTo(tileX + 16, tileY);
-                    frameContext.lineTo(tileX + 16, tileY + sideLength);
-                    frameContext.lineWidth = 10;
-                    frameContext.strokeStyle = frameColor;
-                    frameContext.stroke();
+                    this.drawWall(tileX + 16, tileY, tileX + 16, tileY + sideLength);
                     break;
                 case 7:
-                    frameContext.beginPath();
-                    frameContext.arc(tileX + sideLength, tileY + sideLength, 16, Math.PI, 1.5 * Math.PI, false);
-                    frameContext.lineWidth = 10;
-                    frameContext.strokeStyle = frameColor;
-                    frameContext.stroke();
+                    this.drawCorner(tileX + sideLength, tileY + sideLength, 1, 1.5);
                     break;
                 case 8:
-                    frameContext.beginPath();
-                    frameContext.arc(tileX, tileY + sideLength, 16, 1.5 * Math.PI, 0, false);
-                    frameContext.lineWidth = 10;
-                    frameContext.strokeStyle = frameColor;
-                    frameContext.stroke();
+                    this.drawCorner(tileX, tileY + sideLength, 1.5, 0);
                     break;
                 case 9:
-                    frameContext.beginPath();
-                    frameContext.arc(tileX, tileY, 16, 0, 0.5 * Math.PI, false);
-                    frameContext.lineWidth = 10;
-                    frameContext.strokeStyle = frameColor;
-                    frameContext.stroke();
+                    this.drawCorner(tileX, tileY, 0, 0.5);
                     break;
                 case 0:
-                    frameContext.beginPath();
-                    frameContext.arc(tileX + sideLength, tileY, 16, 0.5 * Math.PI, Math.PI, false);
-                    frameContext.lineWidth = 10;
-                    frameContext.strokeStyle = frameColor;
-                    frameContext.stroke();
+                    this.drawCorner(tileX + sideLength, tileY, 0.5, 1);
                     break;
                 }
             }
         }
+    }
+
+    drawWall(startX, startY, stopX, stopY) {
+        frameContext.beginPath();
+        frameContext.moveTo(startX, startY);
+        frameContext.lineTo(stopX, stopY);
+        frameContext.lineWidth = 10;
+        frameContext.strokeStyle = frameColor;
+        frameContext.stroke();
+    }
+
+    drawCorner(startX, startY, startAngle, endAngle) {
+        frameContext.beginPath();
+        frameContext.arc(startX, startY, 16, startAngle * Math.PI, endAngle * Math.PI, false);
+        frameContext.lineWidth = 10;
+        frameContext.strokeStyle = frameColor;
+        frameContext.stroke();
     }
 
     crashWith(obj1, obj2) {
@@ -398,7 +387,7 @@ class World {
             game.pacman.restartPos();
         }
     }
-};
+}
 
 class Monster {
     constructor(position, color) {
@@ -415,16 +404,12 @@ class Monster {
         switch (direction) {
         case 'Stop':
             return this.position.stop();
-            break;
         case 'Up':
             return this.position.moveUp();
-            break;
         case 'Down':
             return this.position.moveDown();
-            break;
         case 'Left':
             return this.position.moveLeft();
-            break;
         case 'Right':
             return this.position.moveRight();
         }
@@ -506,7 +491,7 @@ class Pacman extends Monster {
         this.lives = 3;
         this.panicMode = false;
         this.toId = undefined;
-        this.deadColor = '#202020';
+        // this.deadColor = '#202020';
     }
 
     startPanic() {
@@ -561,7 +546,6 @@ class Pacman extends Monster {
         case 'Left':
             monsterContext.beginPath();
             monsterContext.arc(x, y, 15, 1.25 * Math.PI, 0.25 * Math.PI, false);
-            // monsterContext.fillStyle = 'transparent';
             monsterContext.fillStyle = this.color;
             monsterContext.fill();
             monsterContext.beginPath();
