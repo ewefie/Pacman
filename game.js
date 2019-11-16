@@ -19,7 +19,8 @@ scoreCanvas.width = 895;
 scoreCanvas.height = 150;
 const scoreContext = scoreCanvas.getContext('2d');
 
-const frameColor = '#2121DE';
+const frameColor = '#1919A6';
+
 const sideLength = 32;
 
 
@@ -447,6 +448,7 @@ class Monster {
 class Ghost extends Monster {
     constructor(position, color) {
         super(position, color);
+        this.frightenedColor = '#2121DE';
     }
 
     drawMonster() {
@@ -512,8 +514,16 @@ class Pacman extends Monster {
             clearTimeout(this.toId);
         }
         this.panicMode = true;
+        const ghosts = game.ghosts;
+
+        for (const ghost of ghosts) {
+            ghost.color = ghost.frightenedColor;
+        }
         this.toId = setTimeout(() => {
             this.panicMode = false;
+            for (const ghost of ghosts) {
+                ghost.color = ghost.liveColor;
+            }
         }, 10000);
     }
 
@@ -659,14 +669,6 @@ const anim = () => {
     //double check maybe will work
     // world.checkState();
 };
-
-
-// const pauseGame = () => {
-//     if (!game.gamePaused) {
-//         clearTimeout();
-//         game.gamePaused = true;
-//     }
-// };
 let game = new Game();
 game.showWelcomeScreen();
 
