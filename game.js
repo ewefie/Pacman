@@ -9,12 +9,12 @@ monsterCanvas.width = 895;
 monsterCanvas.height = 991;
 const monsterContext = monsterCanvas.getContext('2d');
 //info lives etcF
-const infoCanvas = document.getElementById("info");
+const infoCanvas = document.getElementById('info');
 infoCanvas.width = 895;
 infoCanvas.height = 100;
 const infoContext = infoCanvas.getContext('2d');
 //score canvas
-const scoreCanvas = document.getElementById("score");
+const scoreCanvas = document.getElementById('score');
 scoreCanvas.width = 895;
 scoreCanvas.height = 150;
 const scoreContext = scoreCanvas.getContext('2d');
@@ -61,7 +61,7 @@ class Position {
         //teleportation check
         if (this._getY() === 14 && newY === 14 && this._getX() === 27 && newX === 28) {
             newX = 0;
-            x = -27
+            x = -27;
         }
         if (this._getY() === 14 && newY === 14 && this._getX() === 0 && newX === -1) {
             newX = 27;
@@ -160,60 +160,60 @@ class Game {
         this.world.drawWorld();
 
         frameContext.fillStyle = this.pacman.color;
-        frameContext.font = "120px monospace";
-        frameContext.textAlign = "center";
-        frameContext.fillText("PACMAN", frameCanvas.width / 2, frameCanvas.height / 2 - 20);
-        frameContext.font = "30px monospace";
-        frameContext.fillText("Press spacebar to start", frameCanvas.width / 2, frameCanvas.height / 2 + 30);
+        frameContext.font = '120px monospace';
+        frameContext.textAlign = 'center';
+        frameContext.fillText('PACMAN', frameCanvas.width / 2, frameCanvas.height / 2 - 20);
+        frameContext.font = '30px monospace';
+        frameContext.fillText('Press spacebar to start', frameCanvas.width / 2, frameCanvas.height / 2 + 30);
     };
 
     showWinMessage() {
         frameContext.fillStyle = this.pacman.color;
-        frameContext.font = "120px monospace";
-        frameContext.textAlign = "center";
-        frameContext.fillText("WINNER!", frameCanvas.width / 2, frameCanvas.height / 2 - 20);
-        frameContext.font = "30px monospace";
-        frameContext.fillText("Press spacebar to start new game", frameCanvas.width / 2, frameCanvas.height / 2 + 30);
+        frameContext.font = '120px monospace';
+        frameContext.textAlign = 'center';
+        frameContext.fillText('WINNER!', frameCanvas.width / 2, frameCanvas.height / 2 - 20);
+        frameContext.font = '30px monospace';
+        frameContext.fillText('Press spacebar to start new game', frameCanvas.width / 2, frameCanvas.height / 2 + 30);
         game = new Game();// this = new Game();//jak to napisać żeby działało?
 
     };
 
     showGameOver() {
         frameContext.fillStyle = this.pacman.color;
-        frameContext.font = "120px monospace";
-        frameContext.textAlign = "center";
-        frameContext.fillText("GAME OVER!", frameCanvas.width / 2, frameCanvas.height / 2 - 20);
-        frameContext.font = "30px monospace";
-        frameContext.fillText("Press spacebar to start new game", frameCanvas.width / 2, frameCanvas.height / 2 + 30);
+        frameContext.font = '120px monospace';
+        frameContext.textAlign = 'center';
+        frameContext.fillText('GAME OVER!', frameCanvas.width / 2, frameCanvas.height / 2 - 20);
+        frameContext.font = '30px monospace';
+        frameContext.fillText('Press spacebar to start new game', frameCanvas.width / 2, frameCanvas.height / 2 + 30);
         game = new Game();
     };
 
 
     showPause() {
         frameContext.fillStyle = this.pacman.color;
-        frameContext.font = "120px monospace";
-        frameContext.textAlign = "center";
-        frameContext.fillText("GAME PAUSED ", frameCanvas.width / 2, frameCanvas.height / 2 - 20);
-        frameContext.font = "30px monospace";
-        frameContext.fillText("Press spacebar to resume", frameCanvas.width / 2, frameCanvas.height / 2 + 30);
+        frameContext.font = '120px monospace';
+        frameContext.textAlign = 'center';
+        frameContext.fillText('GAME PAUSED ', frameCanvas.width / 2, frameCanvas.height / 2 - 20);
+        frameContext.font = '30px monospace';
+        frameContext.fillText('Press spacebar to resume', frameCanvas.width / 2, frameCanvas.height / 2 + 30);
         this.gamePaused = true;
     }
 
     drawScore() {
         scoreContext.clearRect(0, 100, 300, 40);
-        scoreContext.fillStyle = "white";
-        scoreContext.textAlign = "left";
-        scoreContext.font = "30px Lucida Console";
-        scoreContext.fillText("Score: " + this.pacman.score, 20, scoreCanvas.height - 20);
+        scoreContext.fillStyle = 'white';
+        scoreContext.textAlign = 'left';
+        scoreContext.font = '30px Lucida Console';
+        scoreContext.fillText('Score: ' + this.pacman.score, 20, scoreCanvas.height - 20);
     };
 
 //add highscore
     drawHighScore() {
         // scoreContext.clearRect(0, 0, 895, );
-        scoreContext.fillStyle = "white";
-        scoreContext.font = "30px Lucida Console";
-        scoreContext.textAlign = "center";
-        scoreContext.fillText("HIGH SCORE", scoreCanvas.width / 2, scoreCanvas.height - 75);
+        scoreContext.fillStyle = 'white';
+        scoreContext.font = '30px Lucida Console';
+        scoreContext.textAlign = 'center';
+        scoreContext.fillText('HIGH SCORE', scoreCanvas.width / 2, scoreCanvas.height - 75);
         scoreContext.fillText(this.pacman.score, scoreCanvas.width / 2, scoreCanvas.height - 30);
     };
 
@@ -266,7 +266,7 @@ class World {
     constructor() {
     };
 
-    drawWorld = () => {
+    drawWorld() {
         for (let i = 0; i < 31; i++) {
             for (let j = 0; j < 28; j++) {
                 let tileX = j * sideLength;
@@ -335,7 +335,7 @@ class World {
                 }
             }
         }
-    };
+    }
 
     crashWith(obj1, obj2) {
         const myleft = obj1.y;
@@ -529,11 +529,11 @@ class Pacman extends Monster {
 
     restartPos() {//
         monsterContext.clearRect(this.position.x, this.position.y, sideLength, sideLength);
-        this.currentDirection = "Stop";
-        this.nextDirection = "Stop";
+        this.currentDirection = 'Stop';
+        this.nextDirection = 'Stop';
         this.position = new Position(0, 14);
         this.lives--;
-        console.log("Stracił życie");
+        console.log('Stracił życie');
         console.log(game.pacman.lives);
         this.isDead = false;
         this.color = this.liveColor;
@@ -632,7 +632,7 @@ document.onkeydown = function (e) {
     case 'ArrowRight':
         game.pacman.setDirection('Right');
         break;
-    case "Space":
+    case 'Space':
         if (game.gameOn === false && game.gamePaused === false) {
             game.init();
             break;
@@ -671,4 +671,3 @@ const anim = () => {
 };
 let game = new Game();
 game.showWelcomeScreen();
-
